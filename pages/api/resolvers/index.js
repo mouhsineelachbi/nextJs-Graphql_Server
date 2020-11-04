@@ -4,7 +4,7 @@ export const resolvers = {
   Query: {
     getUsers: async () => {
       try {
-        const users = axios.get("https://api.github.com/users");
+        const users = await axios.get("https://api.github.com/users");
         return users.data.map(({ id, login, avatar_url }) => ({
           id,
           login,
@@ -17,7 +17,9 @@ export const resolvers = {
 
     getUser: async (_, args) => {
       try {
-        const user = axios.get(`https://api.github.com/users/${args.name}`);
+        const user = await axios.get(
+          `https://api.github.com/users/${args.name}`
+        );
         return {
           id: user.data.id,
           login: user.data.login,
